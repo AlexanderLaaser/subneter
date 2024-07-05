@@ -61,7 +61,6 @@ export const getAllVnets = async (isUserAuthenticated: boolean) => {
       }
     }
   } else {
-    console.log("User not authenticated");
     return "User not authenticated";
   }
 };
@@ -100,7 +99,6 @@ export const createVnet = async (
       }
     }
   } else {
-    console.log("User not authenticated");
     return "User not authenticated";
   }
 };
@@ -142,7 +140,6 @@ export const updateVnetById = async (
       }
     }
   } else {
-    console.log("User not authenticated");
     return "User not authenticated";
   }
 };
@@ -180,7 +177,6 @@ export const deleteVnetById = async (
       }
     }
   } else {
-    console.log("User not authenticated");
     return "User not authenticated";
   }
 };

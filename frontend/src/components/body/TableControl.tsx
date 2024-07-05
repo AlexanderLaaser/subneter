@@ -10,6 +10,8 @@ import { useVnetStore } from "../../store/VnetStore";
 import iVnet from "../../interfaces/iVnet";
 import ActionModals from "../elements/modals/NoFocusModal";
 import FocusModal from "../elements/modals/FocusModal";
+import { MdDelete } from "react-icons/md";
+import DeleteButton from "../elements/buttons/DeleteButton";
 
 function TableControl() {
   const { userLoginStatus, setUnsavedChanges } = useUserStore();
@@ -53,8 +55,6 @@ function TableControl() {
         selectedVnet.subnets[0].name !== ""
       ) {
         const cleanedSelectedVnet = cleanVnet(selectedVnet);
-        console.log(selectedVnet.name);
-        console.log("cleanedSelectedVnet", cleanedSelectedVnet);
 
         if (selectedVnet?.isStored === true) {
           await updateVnetById(
@@ -65,17 +65,14 @@ function TableControl() {
         } else {
           await createVnet(userLoginStatus, cleanedSelectedVnet);
           selectedVnet.isStored = true;
-          console.log("Vnet created");
         }
-        console.log("Lade alle Vnets neu");
+
         await getAllVnets(userLoginStatus);
         setSaveSuccessPopup(true);
       } else {
         setWarningPopup(true);
       }
-    } catch (error) {
-      console.error("Failed to store VNET config:", error);
-    }
+    } catch (error) {}
   }
 
   const handleSaveVnetClick = () => {
@@ -126,28 +123,36 @@ function TableControl() {
   return (
     <div className="flex sm:flex-col pt-10 xl:space-x-10 xl:flex-row">
       <div className="flex-start font-medium text-2xl">
-        <h2>Manage Subnets, Address Spaces and More </h2>
+        <h2>Manage your networks: </h2>
       </div>
       <div
         className="flex flex-1 flex-row justify-end space-x-4"
         id="vnetconfig"
       >
+        <DeleteButton
+          status={vnets.length >= 2 ? "active" : "inactive"}
+          onClickFunction={handleDeleteVnetClick}
+          height="h-10 w-10"
+        ></DeleteButton>
+
         <button
-          className={`inline-flex items-center justify-center pr-4 pl-4 h-10 text-slate-50 ${
-            vnets.length === 1
-              ? "bg-slate-300 cursor-not-allowed"
-              : "transition duration-150 hover:scale-110 bg-warning hover:bg-warningsec "
-          } rounded-lg`}
-          onClick={handleDeleteVnetClick}
-          disabled={vnets.length === 1}
-        >
-          <span className="text-l">Delete</span>
-        </button>
-        <button
-          className="inline-flex items-center justify-center pr-4 pl-4 h-10 text-white transition bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary duration-150 hover:scale-110"
+          className="inline-flex items-center justify-center pr-2 pl-2 h-10 w-10 text-white transition bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary duration-150 hover:scale-110"
           onClick={handleSaveVnetClick}
         >
-          <span className="text-l">Save</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-4 h-4" // Ändere die Größe des Icons hier
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 3v18h14V7.5L16.5 3H5zm4 0v5h6V3H9zm1 10h4v4h-4v-4z"
+            />
+          </svg>
         </button>
       </div>
       {showSaveSuccessPopup && (

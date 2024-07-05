@@ -1,11 +1,11 @@
-import Slogan from "./Slogan";
+import Slogan from "./landingpage/Slogan";
 import VnetInput from "./VnetInput";
 import Tab from "./table/Tab";
 import NetworkSidebar from "./NetworkSidebar";
 import { useUserStore } from "../../store/UserStore";
 import TableControl from "./TableControl";
-import Features from "./Features";
-import Process from "./Process";
+import Features from "./landingpage/Features";
+import Process from "./landingpage/Process";
 
 function Body() {
   const { userLoginStatus } = useUserStore();

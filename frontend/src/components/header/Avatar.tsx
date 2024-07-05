@@ -20,7 +20,6 @@ function Avatar() {
     e: React.MouseEvent<HTMLButtonElement>
   ) {
     e.preventDefault();
-    console.log("Logout wird versucht");
     try {
       await logoutUser();
       if (await logoutUser()) {

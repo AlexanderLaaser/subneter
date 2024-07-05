@@ -6,8 +6,9 @@ function Slogan() {
           <div className="flex items-center justify-center text-center">
             <div className="mr-2 text-5xl w-4/5 font-semibold">
               <h1>
-                Organize & <span className="text-sky-800">calculate</span> your
-                Virtual Networks with ease
+                Organize & calculate your{" "}
+                <span className="text-sky-800">Virtual Networks </span>
+                with ease
               </h1>
             </div>
           </div>

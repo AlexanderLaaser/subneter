@@ -5,6 +5,7 @@ import { useUserStore } from "../../store/UserStore";
 import { getCurrentUser } from "../../api/userCalls";
 import AddressSpace from "../body/AddressSpace";
 import iVnet from "../../interfaces/iVnet";
+import AddButton from "../elements/buttons/AddButton";
 
 function VnetInput() {
   const {
@@ -84,7 +85,6 @@ function VnetInput() {
         setIpIsValid(true);
       }
     } catch (error) {
-      console.log("No VNETs found in database");
       setIpIsValid(true);
     }
   };
@@ -137,13 +137,13 @@ function VnetInput() {
 
   return (
     <>
-      <div className="flex flex-1 sm:flex-col pt-20 xl:space-x-10 xl:flex-row font-sans">
+      <div className="flex flex-1 sm:flex-col pt-16 xl:space-x-10 xl:flex-row font-sans">
         <div className="flex flex-1 flex-col space-y-4" id="vnetconfig">
           <div
-            className="flex-start text-lg text-black font-medium "
+            className="flex-start text-lg text-primary font-medium h-10 w-10"
             id="vnetname"
           >
-            Network Name
+            Networkname
           </div>
           <div className="flex-start rounded-lg ">
             <input
@@ -166,8 +166,22 @@ function VnetInput() {
           className="flex flex-1 flex-col space-y-4"
           id="addressspaceNetworkAddress"
         >
-          <div className="flex-1 text-lg text-black font-medium" id="vnetname">
-            Address Space
+          <div
+            className=" flex flex-row flex-1 text-lg font-medium text-primary"
+            id="vnetname"
+          >
+            <div className="flex-1 font-primary">Address Space</div>
+            <div className="flex flex-end">
+              <div className="flex flex-col content-center " id="addbutton">
+                <div className="flex flex-1 items-start">
+                  <AddButton
+                    status={"active"}
+                    onClickFunction={handleAddAddressSpace}
+                    height="h-10 w-10"
+                  ></AddButton>
+                </div>
+              </div>
+            </div>
           </div>
           {addressSpaces.map((addressSpace, index) => (
             <AddressSpace

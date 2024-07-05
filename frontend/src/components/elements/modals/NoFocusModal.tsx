@@ -38,7 +38,7 @@ const FocusModal: FC<FocusModalProps> = ({ message, type, onClose }) => {
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            className="w-20 h-20 text-red-600"
+            className="size-14 text-red-600"
           >
             <path
               strokeLinecap="round"
@@ -56,7 +56,7 @@ const FocusModal: FC<FocusModalProps> = ({ message, type, onClose }) => {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className="size-20 text-green-600"
+            className="size-14 text-green-600"
           >
             <path
               strokeLinecap="round"
@@ -75,7 +75,7 @@ const FocusModal: FC<FocusModalProps> = ({ message, type, onClose }) => {
       <div className="fixed inset-0 opacity-75"></div>
 
       <div
-        className={`absolute top-0 mt-4 w-full max-w-md mx-auto flex flex-row bg-white rounded-lg p-4 z-60  ${getBackgroundColor()}`}
+        className={`absolute top-0 mt-4 w-full max-w-md mx-auto flex flex-row rounded-lg p-2 z-60 ${getBackgroundColor()}`}
       >
         <button
           className="absolute top-0 right-0 p-2 text-gray-400 bg-transparent hover:text-gray-900 rounded"
@@ -87,10 +87,10 @@ const FocusModal: FC<FocusModalProps> = ({ message, type, onClose }) => {
           {getIcon()}
         </div>
         <div className="flex-1 pl-8">
-          <h3 className="text font-normal mb-2 pr-4">{message}</h3>
+          <h3 className="text font-normal pr-4 pt-4">{message}</h3>
           <div className="flex justify-end space-x-4">
             <button
-              className={`btn btn-error ${getButtonColor()} p-2 text-white transition hover:scale-110 border-none outline-none`}
+              className={`btn btn-error ${getButtonColor()} p-2 text-white transition hover:scale-110 border-none outline-none h-6 min-h-8`}
               onClick={() => onClose(true)}
             >
               Okay

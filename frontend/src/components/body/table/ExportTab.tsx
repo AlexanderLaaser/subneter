@@ -200,26 +200,19 @@ function JsonField() {
   };
 
   useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset the height
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set the height to match the content
-    }
-  }, [output]);
-
-  useEffect(() => {
     handleExport();
   }, [exportType, selectedVnet]);
 
   return (
     <div className="flex flex-col space-y-4 pb-10 ">
       <div className="flex flex-row space-x-4 items-center pt-4 ">
-        <div className="flex-start font-semibold">Type:</div>
+        <div className="flex-start pl-4 font-medium">Type:</div>
         <div className="flex-start">
           <select
-            id="countries"
+            id="subnetexports"
             value={exportType}
             onChange={(e) => setExportType(e.target.value)}
-            className="border border-black rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="bg-gray-200 rounded-lg focus:ring-secondary focus:border-secondary block w-full p-2.5"
           >
             <option value="json">JSON</option>
             <option value="terraform">Terraform</option>
@@ -233,17 +226,44 @@ function JsonField() {
           <textarea
             ref={textareaRef}
             value={output}
-            className="border border-sky-800 flex  w-full bg-white rounded-lg h-auto min-h-[600px] overflow-hidden resize-none p-4"
+            className="border border-sky-800 flex w-full bg-white rounded-lg min-h-[500px] resize-none p-4"
             readOnly
           ></textarea>
         </div>
       </div>
       <div className="flex justify-center mt-4 pb-2">
         <button
-          className="inline-flex items-center justify-center w-32 h-10 mr-2 text-slate-50 transition-colors duration-150 bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary hover:scale-110 transition"
+          className="inline-flex items-center justify-center w-10 h-10 mr-2 text-slate-50 duration-150 bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary hover:scale-110 transition"
           onClick={handleDownload}
         >
-          <span className="text-l">Export</span>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-6 h-6"
+          >
+            <path
+              d="M13 11L21.2 2.80005"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M22 6.8V2H17.2"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13"
+              stroke="#FFFFFF"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </button>
       </div>
     </div>

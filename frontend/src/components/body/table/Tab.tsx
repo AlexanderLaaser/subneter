@@ -19,7 +19,7 @@ function Tab() {
   return (
     <>
       <div className="flex flex-1 justify-center content-center flex-col">
-        <div className="flex justify-center content-center w-full ">
+        <div className="flex justify-center content-center w-full">
           <div className="w-full pt-4 ">
             <ul
               className="flex space-x-4 flex-wrap -mb-px text-sm text-center text-zinc-950 border-b border-zinc-950 dark:border-zinc-950"
@@ -29,9 +29,9 @@ function Tab() {
             >
               <li className="me-2" role="presentation">
                 <button
-                  className={`text-lg inline-block border-b-2 pb-2 rounded-t-lg hover:border-secondary hover:text-organge-600 dark:hover:text-secondary dark:hover:border-secondary ${
+                  className={`text-lg inline-block border-b-2 pb-2 rounded-t-lg hover:border-secondary hover:text-secondary ${
                     activeTab === "calculator-tab"
-                      ? "text-sky-800 border-sky-800 font-medium"
+                      ? "text-primary border-primary font-medium"
                       : ""
                   }`}
                   id="calculator-tab"
@@ -42,15 +42,15 @@ function Tab() {
                   aria-selected={activeTab === "calculator-tab"}
                   onClick={() => handleTabClick("calculator-tab")}
                 >
-                  Subnet config
+                  Subnets
                 </button>
               </li>
-              {userLoginStatus ? (
+              {userLoginStatus && (
                 <li className="me-2" role="presentation">
                   <button
-                    className={`text-lg inline-block border-b-2 pb-2 rounded-t-lg hover:border-secondary dark:hover:text-secondary dark:hover:border-secondary ${
+                    className={`text-lg inline-block border-b-2 pb-2 rounded-t-lg hover:border-secondary hover:text-secondary ${
                       activeTab === "json-tab"
-                        ? "text-sky-800 border-sky-800 font-medium"
+                        ? "text-primary border-primary font-medium"
                         : ""
                     }`}
                     id="json-tab"
@@ -64,7 +64,7 @@ function Tab() {
                     Export
                   </button>
                 </li>
-              ) : null}
+              )}
             </ul>
           </div>
         </div>

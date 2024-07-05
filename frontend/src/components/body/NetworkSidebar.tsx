@@ -2,7 +2,8 @@ import NetworkIcon from "../../styles/network.png";
 import { useVnetStore } from "../../store/VnetStore";
 import { useUserStore } from "../../store/UserStore";
 import FocusModal from "../elements/modals/FocusModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AddButton from "../elements/buttons/AddButton";
 
 function NetworkSidebar() {
   const { vnets, addVnet, setSelectedVnet, selectedVnetId, getSelectedVnet } =
@@ -10,6 +11,7 @@ function NetworkSidebar() {
   const { unsavedChanges, setUnsavedChanges } = useUserStore();
   const [showModal, setShowModal] = useState(false);
   const [pendingVnetId, setPendingVnetId] = useState<number | null>(null);
+  const { userLoginStatus } = useUserStore();
 
   const newVnet = {
     id: vnets.length > 0 ? Math.max(...vnets.map((v) => v.id)) + 1 : 1,
@@ -64,6 +66,11 @@ function NetworkSidebar() {
     setPendingVnetId(null);
   };
 
+  useEffect(() => {
+    if (vnets.length === 0) addVnet(newVnet); // This is the line that causes the error
+    getSelectedVnet();
+  }, [userLoginStatus]);
+
   return (
     <>
       <aside
@@ -73,17 +80,18 @@ function NetworkSidebar() {
       >
         <div className="pt-4 px-4 dark:bg-gray-800">
           <div className="flex items-center justify-between">
-            <div className="text-lg font-medium">
+            <div className="flex text-lg font-medium h-10 items-center">
               <h3>Virtuel Networks</h3>
             </div>
-            <div className="">
+            <div className="flex-none">
               {unsavedChanges ? null : (
-                <button
-                  className="inline-flex items-center justify-center w-6 h-6 text-slate-50 transition-colors duration-150 rounded-lg focus:shadow-outline bg-sky-800 hover:bg-secondary"
-                  onClick={handleAddVnet}
-                >
-                  <span className="text-l">+</span>
-                </button>
+                <div className="flex flex-1 items-start">
+                  <AddButton
+                    status={"active"}
+                    onClickFunction={handleAddVnet}
+                    height="h-10 w-10"
+                  ></AddButton>
+                </div>
               )}
             </div>
           </div>
@@ -103,7 +111,7 @@ function NetworkSidebar() {
                     alt="Network Icon"
                   />
                   <div
-                    className={`flex-1 text-center w-full h-full${
+                    className={`pr-2 flex-1 text-center w-full h-full ${
                       selectedVnetId === vnet.id
                         ? "text-white"
                         : "text-black hover:text-white"

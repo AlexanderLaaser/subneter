@@ -73,12 +73,6 @@ export const generateNextSubnet = async (
   ip_ranges_used: string[]
 ) => {
   try {
-    console.log("generateNextSubnet aufgerufen mit Daten:", {
-      vnet_cidr,
-      new_suffix_length,
-      ip_ranges_used,
-    });
-
     if (!vnet_cidr || !new_suffix_length || !Array.isArray(ip_ranges_used)) {
       throw new Error("Ungültige Eingabeparameter für generateNextSubnet");
     }

@@ -1,5 +1,5 @@
 import SizeSelect from "../../elements/SubnetMaskSelect";
-import DeleteButton from "../../elements/DeleteButton";
+import DeleteButton from "../../elements/buttons/DeleteButton";
 import { useVnetStore } from "../../../store/VnetStore";
 
 interface InterfaceTableEntryProps {
@@ -46,7 +46,7 @@ function TableEntry({
 
   return (
     <>
-      <div className="flex space-x-2 mt-3 items-center text-normal">
+      <div className="flex space-x-4 mt-3 items-center text-normal">
         <div className="flex items-center w-full rounded-lg h-10 bg-gray-200 space-x-6">
           <div className="flex-1 h-full ">
             <input

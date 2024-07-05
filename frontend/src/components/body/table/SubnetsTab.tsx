@@ -50,7 +50,6 @@ function SubnetsTab() {
     const ips = await getIpaddressesCount(subnetmask);
 
     for (const addressSpace of selectedVnet.addressspaces) {
-      console.log(addressSpace.networkaddress);
       try {
         const range = await generateNextSubnet(
           `${addressSpace.networkaddress}/${addressSpace.subnetmask}`,
@@ -150,7 +149,6 @@ function SubnetsTab() {
             error: localSubnetError, // Setze den Fehler
           });
           setSubnetError(localSubnetError);
-          setSubnetWarningPop(true);
         }
       } else {
         console.error(`Subnet with ID ${id} not found`);
@@ -206,7 +204,7 @@ function SubnetsTab() {
 
   return (
     <>
-      <div className="flex justify-center content-center w-full pr-12">
+      <div className="flex justify-center content-center w-full pr-14">
         <div className="flex pt-6 w-full font-medium space-x-6 text-black">
           <div className="flex-1">
             <div className="pl-4 pr-4">Name</div>
@@ -228,10 +226,23 @@ function SubnetsTab() {
 
         <div className="flex content-center items-center mt-4">
           <button
-            className=" p-2 w-fit inline-flex items-center justify-center text-white duration-150 bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary hover:scale-110 transition"
             onClick={handleAddClick}
+            className="inline-flex items-center justify-center w-10 h-10 text-slate-50 transition-colors duration-150 rounded-lg focus:shadow-outline bg-sky-800 hover:bg-secondary"
           >
-            <span className="text-l">Add Subnet</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={3}
+                d="M12 6v12m6-6H6"
+              />
+            </svg>
           </button>
         </div>
       </div>

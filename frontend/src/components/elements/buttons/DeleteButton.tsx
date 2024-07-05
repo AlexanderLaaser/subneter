@@ -17,7 +17,7 @@ function DeleteButton({ status, onClickFunction, height }: DeleteButtonProps) {
   return (
     <div>
       <button
-        className={`inline-flex items-center justify-center ${height}  text-slate-50 rounded-lg focus:shadow-outline ${buttonStyles}`}
+        className={`inline-flex items-center justify-center ${height} text-slate-50 rounded-lg focus:shadow-outline ${buttonStyles}`}
         onClick={status === "active" ? onClickFunction : undefined}
         disabled={status !== "active"}
       >

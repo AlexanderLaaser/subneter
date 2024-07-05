@@ -1,55 +1,46 @@
 import json
 from django.contrib.auth import authenticate, login, get_user_model, logout
-from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.http import JsonResponse
-from django.views.decorators.http import require_http_methods
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
+
+CustomUser = get_user_model()
 
 @api_view(['POST'])
 def register_user(request):
     try:
         data = json.loads(request.body)
-        username = data['username']
         password = data['password']
         email = data['email']
         first_name = data.get('firstname', '')
         last_name = data.get('lastname', '')
     except (KeyError, json.JSONDecodeError) as e:
-        # If JSON is not valid or key element are missing
         return JsonResponse({'error': 'Invalid or missing data'}, status=400)
 
-    if not (username and password and email):
+    if not (password and email):
         return JsonResponse({'error': 'Missing data'}, status=400)
 
-    # Creating user entry
     try:
-        user = User.objects.create_user(username, email, password)
-        user.first_name = first_name
-        user.last_name = last_name
+        user = CustomUser.objects.create_user(email=email, password=password, first_name=first_name, last_name=last_name)
         user.save()
         return JsonResponse({'message': 'User registered successfully'}, status=201)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-
 @api_view(['POST'])
 def login_user(request):
     try:
         data = json.loads(request.body)
-        username = data['username']
+        email = data['email']
         password = data['password']
     except (KeyError, json.JSONDecodeError) as e:
-        # If JSON is not valid or key element are missing
         return JsonResponse({'error': 'Invalid or missing data'}, status=400)
 
-    if not (username and password):
+    if not (email and password):
         return JsonResponse({'error': 'Missing email or password'}, status=400)
 
-    # authenticate user
-    user = authenticate(request, username=username, password=password)
+    user = authenticate(request, email=email, password=password)
     if user is not None:
         if user.is_active:
             login(request, user)
@@ -62,10 +53,8 @@ def login_user(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_current_user(request):
-    User = get_user_model()
-    user = User.objects.get(username=request.user.username)
+    user = request.user
     user_data = {
-        'username': user.username,
         'email': user.email,
         'first_name': user.first_name,
         'last_name': user.last_name
@@ -75,5 +64,17 @@ def get_current_user(request):
 @api_view(['POST'])
 def logout_user(request):
     logout(request)
-    
     return JsonResponse({'message': 'Logged out successfully'}, status=200)
+
+@api_view(['POST'])
+
+def check_email(request):
+    try:
+        data = json.loads(request.body)
+        email = data['email']
+    except (KeyError, json.JSONDecodeError) as e:
+        return JsonResponse({'error': 'Invalid or missing data'}, status=400)
+
+    if CustomUser.objects.filter(email=email).exists():
+        return JsonResponse({'available': False}, status=200)
+    return JsonResponse({'available': True}, status=200)

@@ -50,12 +50,12 @@ export const registerUser = async (user: iUser) => {
   }
 };
 
-export const loginUser = async (username: string, password: string) => {
+export const loginUser = async (email: string, password: string) => {
   try {
     const response = await axios.post(
       `${import.meta.env.VITE_API_SERVER_URL}/api/user/login_user`,
       {
-        username,
+        email,
         password,
       }
     );
@@ -132,5 +132,17 @@ export const logoutUser = async () => {
   } catch (error) {
     console.error("Logout failed:", error);
     throw error;
+  }
+};
+
+export const checkEmailAvailability = async (email: string) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_SERVER_URL}/api/user/check_email`,
+      { email }
+    );
+    return response.data.available;
+  } catch (error) {
+    throw new Error("Failed to check email availability");
   }
 };

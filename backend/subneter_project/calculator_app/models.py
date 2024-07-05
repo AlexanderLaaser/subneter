@@ -1,8 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from subneter_project import settings
 
 class Vnet(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vnets')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

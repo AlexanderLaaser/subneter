@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useVnetStore } from "../../store/VnetStore";
 import SubnetMaskSelect from "../elements/SubnetMaskSelect";
-import DeleteButton from "../elements/DeleteButton";
+import DeleteButton from "../elements/buttons/DeleteButton";
 import {
   getIpaddressesCount,
   getAddressSpace,
@@ -31,6 +31,7 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
     updateAddressSpaceNetworkAddress,
     getAddressSpaceCIDRList,
     deleteSubnetsWithinRange,
+    getAddressSpaces,
   } = useVnetStore();
   const { userLoginStatus, setUnsavedChanges } = useUserStore();
   const [IpIsValid, setIpIsValid] = useState(true);
@@ -39,6 +40,8 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
   const [ips, setIps] = useState(256);
   const [showAddressSpaceMaskWarningPop, setAddressSpaceMaskWarningPop] =
     useState(false);
+
+  const addressSpaces = getAddressSpaces();
 
   const validateAndFetchAddressSpace = async (
     networkAddress: string,
@@ -50,7 +53,7 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
 
       try {
         const otherAddressSpaces = getAddressSpaceCIDRList(id);
-        console.log(otherAddressSpaces);
+
         const addressSpace = await getAddressSpace(
           networkAddress + "/" + subnetMask,
           otherAddressSpaces,
@@ -83,7 +86,6 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const newSubnetMask = parseInt(e.target.value);
-    console.log("New subnet mask: ", newSubnetMask);
 
     if (
       (await checkIfVnetSubnetMaskIsValid(networkAddress, newSubnetMask)) ===
@@ -93,16 +95,21 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
       validateAndFetchAddressSpace(networkAddress, newSubnetMask, id);
     } else {
       setAddressSpaceMaskWarningPop(true);
-      console.log("Subnet mask is invalid");
     }
     setUnsavedChanges(true);
   };
 
   const handleDeleteAddressSpace = () => {
-    const cidrRange = `${networkAddress}/${subnetMask}`;
-    deleteSubnetsWithinRange(cidrRange);
-    deleteAddressSpace(id);
-    setUnsavedChanges(true);
+    if (IpIsValid) {
+      const cidrRange = `${networkAddress}/${subnetMask}`;
+      deleteSubnetsWithinRange(cidrRange);
+      deleteAddressSpace(id);
+    } else {
+      deleteAddressSpace(id);
+      setUnsavedChanges(true);
+      setError("");
+      setIpIsValid(true);
+    }
   };
 
   const validateIP = (ip: string) => {
@@ -153,34 +160,27 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
         <div className="flex-1 text-sky-800 text-m pt-1">{ips}</div>
       </div>
       {userLoginStatus == true ? (
-        index > 0 ? (
+        addressSpaces.length > 1 ? (
           <DeleteButton
             status={"active"}
             onClickFunction={handleDeleteAddressSpace}
             height="h-10 w-10"
           />
         ) : (
-          <div className="flex flex-start">
-            <div className="flex flex-col content-center " id="addbutton">
-              <div className="flex flex-1 items-start">
-                <button
-                  onClick={handleAddAddressSpace}
-                  className="w-10 h-10 text-slate-50 transition duration-150 bg-sky-800 rounded-lg focus:shadow-outline hover:bg-secondary hover:scale-110"
-                >
-                  <span className="text-l">+</span>
-                </button>
-              </div>
-            </div>
-          </div>
+          <DeleteButton
+            status={"inactive"}
+            onClickFunction={handleDeleteAddressSpace}
+            height="h-10 w-10"
+          />
         )
       ) : null}
-      {showAddressSpaceMaskWarningPop && (
+      {showAddressSpaceMaskWarningPop === true ? (
         <ActionModals
           message={"Address range cannot be changed if subnets are filled in!"}
           onClose={() => setAddressSpaceMaskWarningPop(false)}
           type={"warning"}
         />
-      )}
+      ) : null}
     </div>
   );
 };

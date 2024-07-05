@@ -3,6 +3,7 @@ import microsoftLogo from "../../styles/microsoft-logo.png";
 import googleLogo from "../../styles/google-logo.svg";
 import githubLogo from "../../styles/github-logo.svg";
 import { getCurrentUser, loginUser } from "../../api/userCalls";
+import Logo from "../../styles/logo.png";
 
 import { useUserStore } from "../../store/UserStore";
 import { useState } from "react";
@@ -18,20 +19,19 @@ function LoginPopUp() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const {
-    setUsername,
     setPassword,
     setFirstname,
     setLastname,
     setEmail,
     setuserLoginStatus,
-    username,
     password,
+    email,
   } = useUserStore();
 
   const handleInputFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "username") {
-      setUsername(value);
+    if (name === "email") {
+      setEmail(value);
     } else if (name === "password") {
       setPassword(value);
     }
@@ -57,9 +57,11 @@ function LoginPopUp() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     try {
-      await loginUser(username, password);
-      clickToHome();
-      setUserData();
+      const userData = await loginUser(email, password);
+      if (userData) {
+        clickToHome();
+        setUserData();
+      }
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);
@@ -98,21 +100,29 @@ function LoginPopUp() {
             action="#"
             onSubmit={handleSubmit}
           >
-            <h3 className="text-xl text-sky-800 font-medium dark:text-white">
-              Your Subneter Login
-            </h3>
+            <div className="flex flex-row space-x-4 items-center">
+              <div>
+                <Link to="/">
+                  <img className="h-10 w-10 " src={Logo} alt="Your Logo" />
+                </Link>
+              </div>
+              <h3 className="text-xl text-sky-800 font-medium dark:text-white">
+                Your Subneter Login
+              </h3>
+            </div>
+
             <div className="flex flex-col space-y-4">
               <div className="">
                 <label
                   htmlFor="email"
                   className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
                 >
-                  Your username
+                  Your email
                 </label>
                 <input
-                  type="username"
-                  name="username"
-                  id="username"
+                  type="email"
+                  name="email"
+                  id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-secondary block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   placeholder="name@company.com"
                   onChange={handleInputFieldChange}
@@ -134,19 +144,16 @@ function LoginPopUp() {
                   onChange={handleInputFieldChange}
                 ></input>
               </div>
-            </div>
-            <div className="flex justify-between">
               {errorMessage !== "" ? (
-                <div className="flex items-start text-warning text-sm">
-                  {errorMessage}
-                </div>
+                <div className=" text-warning text-sm">{errorMessage}</div>
               ) : (
                 <div className="flex items-start"></div>
               )}
-              {/* <a className="text-sm text-zinc-700">Lost Password?</a> */}
             </div>
 
-            <div className="flex flex-row gap-2">
+            {/* <a className="text-sm text-zinc-700">Lost Password?</a> */}
+
+            {/* <div className="flex flex-row gap-2">
               <button
                 disabled
                 className="inline-flex h-10 rounded-lg w-full items-center justify-center gap-2 border border-sky-800 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 hover:border-secondary"
@@ -172,7 +179,7 @@ function LoginPopUp() {
                 <img src={githubLogo} alt="Your Logo" className="h-6 w-6"></img>{" "}
                 GitHub
               </button>
-            </div>
+            </div> */}
             <button
               type="submit"
               className="w-full text-white bg-sky-800 hover:bg-secondary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-105 transition"

@@ -327,7 +327,6 @@ const vnetStore = create<iVnetStore>((set, get) => ({
         usedRanges
       );
 
-      console.log("Network validation API call result:", isValid);
       return isValid;
     } catch (error) {
       console.error("Error validating subnet mask:", error);

@@ -10,7 +10,7 @@ function Page() {
       <header className="text-white">
         <Header />
       </header>
-      <main className="flex flex-1 overflow-hidden">
+      <main className="flex flex-1">
         <Body />
       </main>
       <footer className="text-black">
