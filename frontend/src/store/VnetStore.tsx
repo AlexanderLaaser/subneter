@@ -3,7 +3,7 @@ import { compareVnetRangeWithSubnetRangeUsed } from "../api/calculatorCalls";
 import iVnet from "../interfaces/iVnet";
 import iSubnet from "../interfaces/iSubnet";
 import iAddressSpace from "../interfaces/iAddressSpace";
-import { Address4, Address6 } from "ip-address";
+import { Address4 } from "ip-address";
 
 interface iVnetStore {
   vnets: iVnet[];

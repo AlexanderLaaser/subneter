@@ -1,5 +1,5 @@
 import Logo from "../../styles/logo.png";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import { useUserStore } from "../../store/UserStore";
 import { useState } from "react";

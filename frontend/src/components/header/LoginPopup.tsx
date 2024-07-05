@@ -1,7 +1,4 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import microsoftLogo from "../../styles/microsoft-logo.png";
-import googleLogo from "../../styles/google-logo.svg";
-import githubLogo from "../../styles/github-logo.svg";
 import { getCurrentUser, loginUser } from "../../api/userCalls";
 import Logo from "../../styles/logo.png";
 

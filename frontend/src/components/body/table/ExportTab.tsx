@@ -1,5 +1,5 @@
 import iVnet from "../../../interfaces/iVnet";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useVnetStore } from "../../../store/VnetStore";
 
 function JsonField() {
@@ -51,7 +51,7 @@ function JsonField() {
     return JSON.stringify(selectedFields, null, 2);
   };
 
-  const transformToTerraform = (vnet: iVnet, fields: string[]): string => {
+  const transformToTerraform = (vnet: iVnet): string => {
     let terraformConfig = `resource "azurerm_virtual_network" "${vnet.name}" {
   name                = "${vnet.name}"
   address_space       = [${vnet.addressspaces.map(
@@ -75,7 +75,7 @@ function JsonField() {
     return terraformConfig;
   };
 
-  const transformToARM = (vnet: iVnet, fields: string[]): string => {
+  const transformToARM = (vnet: iVnet): string => {
     const armConfig = {
       $schema:
         "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
@@ -106,7 +106,7 @@ function JsonField() {
     return JSON.stringify(armConfig, null, 2);
   };
 
-  const transformToBicep = (vnet: iVnet, fields: string[]): string => {
+  const transformToBicep = (vnet: iVnet): string => {
     let bicepConfig = `resource symbolicname 'Microsoft.Network/virtualNetworks@2023-11-01' = {
   name: '${vnet.name}'
   location: 'West Europe' // Change as necessary
@@ -143,13 +143,13 @@ function JsonField() {
         transformedOutput = transformToJSON(selectedVnet, selectedFields);
         break;
       case "terraform":
-        transformedOutput = transformToTerraform(selectedVnet, selectedFields);
+        transformedOutput = transformToTerraform(selectedVnet);
         break;
       case "arm":
-        transformedOutput = transformToARM(selectedVnet, selectedFields);
+        transformedOutput = transformToARM(selectedVnet);
         break;
       case "bicep":
-        transformedOutput = transformToBicep(selectedVnet, selectedFields);
+        transformedOutput = transformToBicep(selectedVnet);
         break;
       default:
         transformedOutput = transformToJSON(selectedVnet, selectedFields);

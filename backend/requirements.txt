@@ -3,3 +3,6 @@ django
 djangorestframework
 django-cors-headers
 django-allauth
+python-decouple
+psycopg
+psycopg2

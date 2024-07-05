@@ -21,8 +21,6 @@ const AddressSpace: React.FC<AddressSpaceProps> = ({
   networkAddress,
   subnetMask,
   id,
-  index,
-  handleAddAddressSpace,
 }) => {
   const {
     deleteAddressSpace,

@@ -6,12 +6,10 @@ import {
 import { useVnetStore } from "../../../store/VnetStore";
 import TableEntry from "./TableEntry";
 import iSubnet from "../../../interfaces/iSubnet";
-import WarningPopup from "../../elements/modals/NoFocusModal";
 import ActionModals from "../../elements/modals/NoFocusModal";
 
 function SubnetsTab() {
   const {
-    vnets,
     getSelectedVnet,
     addSubnet,
     deleteSubnet,

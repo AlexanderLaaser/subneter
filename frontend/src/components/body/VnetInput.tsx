@@ -9,7 +9,6 @@ import AddButton from "../elements/buttons/AddButton";
 
 function VnetInput() {
   const {
-    vnets,
     addVnet,
     getSelectedVnet,
     setSelectedVnet,

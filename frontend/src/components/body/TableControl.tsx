@@ -10,7 +10,6 @@ import { useVnetStore } from "../../store/VnetStore";
 import iVnet from "../../interfaces/iVnet";
 import ActionModals from "../elements/modals/NoFocusModal";
 import FocusModal from "../elements/modals/FocusModal";
-import { MdDelete } from "react-icons/md";
 import DeleteButton from "../elements/buttons/DeleteButton";
 
 function TableControl() {

@@ -21,16 +21,6 @@ axios.interceptors.request.use(
   }
 );
 
-const token = Cookies.get("CSRFTOKEN");
-
-const header = {
-  headers: {
-    "Content-Type": "application/json",
-    "X-CSRFToken": token,
-  },
-  withCredentials: true,
-};
-
 export const getAllVnets = async (isUserAuthenticated: boolean) => {
   if (isUserAuthenticated) {
     try {
