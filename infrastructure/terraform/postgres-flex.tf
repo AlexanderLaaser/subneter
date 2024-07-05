@@ -9,6 +9,5 @@ resource "azurerm_postgresql_flexible_server" "example" {
   zone                          = "1"
   storage_mb                    = 32768
   storage_tier                  = "P15"
-  sku_name                      = "Standard_B2s"
-
+  sku_name                      = "B_Standard_B2s"
 }
