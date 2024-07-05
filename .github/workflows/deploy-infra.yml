@@ -9,8 +9,8 @@ on:
 
   push:
     paths:
-      - '**.tf'
-      
+      - "**.tf"
+
   pull_request:
     branches:
       - main
@@ -22,8 +22,7 @@ env:
   ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
   TF_VAR_clientid: ${{ vars.ARM_CLIENT_ID }}
   TF_VAR_objectid: ${{ vars.ARM_APP_ID_azurekeyvaultsecretsprovider_aks_subneterdev }}
-  
-  
+
 jobs:
   deploy-terraform:
     name: Deploy Azure Infrastructure with Terraform
@@ -47,13 +46,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
+
       - name: Enable Storage Account Access
         run: |
           az storage account update --subscription ${{env.ARM_SUBSCRIPTION_ID}} --name ${{vars.SA_BACKEND_NAME}} --public-network-access Enabled
-   
-        timeout-minutes: 10
-      
+
       - name: Terraform Init
         run: terraform init
         working-directory: ./infrastructure/terraform
@@ -65,18 +62,18 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check -recursive
         working-directory: ./infrastructure/terraform
-      
+
       - name: Terraform Plan
         id: tf-plan
         run: terraform plan -out plan.infra
         working-directory: ./infrastructure/terraform
-         
+
       - name: Publish Terraform Plan
         uses: actions/upload-artifact@v3
         with:
           name: tfplan
           path: ./infrastructure/terraform/plan.infra
-      
+
       - name: Download Terraform Plan
         uses: actions/download-artifact@v3
         with:
@@ -85,69 +82,7 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve plan.infra
         working-directory: ./infrastructure/terraform
-          
+
       - name: Disable Storage Account Access
         run: |
           az storage account update --subscription ${{env.ARM_SUBSCRIPTION_ID}} --name ${{vars.SA_BACKEND_NAME}} --public-network-access Disabled
-  
-  deploy-nginx-approuting:
-    name: Enable approuting with nginx
-    needs: deploy-terraform
-    runs-on: ubuntu-latest
-    environment: development
-    if: ${{ vars.INIT_DEPLOY == 'true' || github.event.inputs.DEPLOY_INIT_MANUALLY == 'true' }} 
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Log in to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-      - name: Login to Azure (Kubernetes Context Setup)
-        uses: azure/aks-set-context@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          cluster-name: ${{ vars.AZURE_AKS_NAME }}
-          resource-group: ${{ vars.AZURE_AKS_RG_NAME }}
-      
-      - name: Receive Keyvault ID
-        run: |
-          echo "KEYVAULT_ID=$(az keyvault show --name ${{vars.KEYVAULT_NAME}} --query 'id' -o tsv)" >> $GITHUB_ENV
-      
-      - name: Install Nginx
-        run: |
-          az aks approuting enable -g ${{vars.AZURE_AKS_RG_NAME}} -n ${{vars.AZURE_AKS_NAME}} --enable-kv --attach-kv ${{env.KEYVAULT_ID}}
-
-      - name: Receive DNS zone id
-        run: |
-          echo "Zone_ID=$(az network dns zone show -g ${{vars.AZURE_MAIN_RG_NAME}} -n ${{vars.AZURE_PUBLIC_DNS_ZONE}} --query 'id' -o tsv)" >> $GITHUB_ENV
-      
-      - name: Link DNS Zone to NGINX
-        run: |
-          az aks approuting zone add -g ${{vars.AZURE_AKS_RG_NAME}} -n ${{vars.AZURE_AKS_NAME}} --ids=${{ env.Zone_ID }} --attach-zones
-  
-  deploy-argo-cd:
-    name: Install Argo CD on Kubernetes Cluster
-    needs: deploy-nginx-approuting
-    runs-on: ubuntu-latest
-    environment: development
-    if: ${{ vars.INIT_DEPLOY == 'true' || github.event.inputs.DEPLOY_INIT_MANUALLY == 'true' }} 
-    steps:
-      - uses: actions/checkout@v4
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v1
-      - name: Login to Azure (Kubernetes Context Setup)
-        uses: azure/aks-set-context@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          cluster-name: ${{ vars.AZURE_AKS_NAME }}
-          resource-group: ${{ vars.AZURE_AKS_RG_NAME }}
-      - name: Install Argo CD
-        run: |
-          kubectl create namespace argocd || true
-          - name: Validate Argo CD Installation
-          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      
-      - name: Validate Argo CD Installation
-        run: kubectl rollout status deployment/argocd-server -n argocd
