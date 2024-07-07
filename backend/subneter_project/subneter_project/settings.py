@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     'user_app',
 ]
 
-CSRF_COOKIE_SECURE = False  # Needs to be changed for prod deployments
-SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True  # Needs to be True for production
+SESSION_COOKIE_SECURE = True  # Needs to be True for production
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173']
