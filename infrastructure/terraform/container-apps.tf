@@ -21,7 +21,7 @@ resource "azurerm_container_app" "react" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = azurerm_user_assigned_identity.main.principal_id
+    identity = azurerm_user_assigned_identity.main.id
   }
 
   template {
@@ -42,7 +42,7 @@ resource "azurerm_container_app" "django" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = azurerm_user_assigned_identity.main.principal_id
+    identity = azurerm_user_assigned_identity.main.id
   }
 
   template {
