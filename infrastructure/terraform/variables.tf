@@ -43,3 +43,11 @@ variable "DB_HOST" {
 variable "DB_PORT" {
   type = string
 }
+
+variable "FRONTEND_URL" {
+  type = string
+}
+
+variable "BACKEND_URL" {
+  type = string
+}

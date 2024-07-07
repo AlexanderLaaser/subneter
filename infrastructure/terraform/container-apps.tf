@@ -114,6 +114,16 @@ resource "azurerm_container_app" "django" {
         name  = "DB_PORT"
         value = var.DB_PORT
       }
+
+      env {
+        name  = "FRONTEND_URL"
+        value = var.FRONTEND_URL
+      }
+
+      env {
+        name  = "BACKEND_URL"
+        value = var.BACKEND_URL
+      }
     }
   }
 
