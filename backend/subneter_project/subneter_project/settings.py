@@ -13,11 +13,23 @@ SECRET_KEY = 'django-insecure-h5rrjescc1diwix3@_4ai069ah$gpvhbx#*3tp@9jqighqzh@v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTHENTICATION_BACKENDS = ['user_app.authentication.EmailBackend','django.contrib.auth.backends.ModelBackend']
+AUTHENTICATION_BACKENDS = ['user_app.authentication.EmailBackend', 'django.contrib.auth.backends.ModelBackend']
 AUTH_USER_MODEL = 'user_app.CustomUser'
 
+# Read the FRONTEND_URL and BACKEND_URL from environment variables
+FRONTEND_URL = config('FRONTEND_URL', default='')
+BACKEND_URL = config('BACKEND_URL', default='')
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1',"subneter.de"]
+print(f"Configured FRONTEND_URL: {FRONTEND_URL}")
+print(f"Configured BACKEND_URL: {BACKEND_URL}")
+
+ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de']
+if FRONTEND_URL:
+    ALLOWED_HOSTS.append(FRONTEND_URL)
+if BACKEND_URL:
+    ALLOWED_HOSTS.append(BACKEND_URL)
+
+print(f"Configured ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
 # Application definition
 
@@ -32,19 +44,28 @@ INSTALLED_APPS = [
     'corsheaders',
     'calculator_app',
     'user_app',
-    
 ]
 
-CSRF_COOKIE_SECURE = False #Needs to be changed for prod deployments
+CSRF_COOKIE_SECURE = False  # Needs to be changed for prod deployments
 SESSION_COOKIE_SECURE = False
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
-CSRF_COOKIE_NAME = 'CSRFTOKEN'
+CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173']
+if FRONTEND_URL:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{FRONTEND_URL}')
+if BACKEND_URL:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{BACKEND_URL}')
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173'
 ]
+if FRONTEND_URL:
+    CORS_ALLOWED_ORIGINS.append(f'https://{FRONTEND_URL}')
+if BACKEND_URL:
+    CORS_ALLOWED_ORIGINS.append(f'https://{BACKEND_URL}')
+
 CORS_ALLOW_HEADERS = [
     "x-csrftoken",
     'csrftoken',
@@ -64,7 +85,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
 ]
 
 ROOT_URLCONF = 'subneter_project.urls'
@@ -87,7 +107,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'subneter_project.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -101,7 +120,6 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -121,7 +139,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -132,7 +149,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

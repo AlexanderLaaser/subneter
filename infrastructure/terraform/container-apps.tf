@@ -49,7 +49,7 @@ resource "azurerm_container_app" "react" {
       memory = "2Gi"
 
       env {
-        name  = "DJANGO_API_URL"
+        name  = "VITE_API_SERVER_URL"
         value = var.VITE_API_SERVER_URL
       }
     }
