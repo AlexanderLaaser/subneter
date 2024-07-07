@@ -27,7 +27,7 @@ GitOps/CD: **ArgoCD**
 ## Requirements: Setting .env files
 
 /frontend:
-VITE_API_SERVER_URL=
+VITE_API_SERVER_URL
 
 /backend/subneter_project:
 DB_NAME=postgres

@@ -53,8 +53,6 @@ resource "azurerm_container_app" "react" {
         value = var.VITE_API_SERVER_URL
       }
     }
-
-
   }
 
   depends_on = [azurerm_role_assignment.containerappsacrpull]
