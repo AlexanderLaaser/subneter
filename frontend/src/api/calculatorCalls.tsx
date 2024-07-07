@@ -5,15 +5,19 @@ axios.defaults.xsrfCookieName = "CSRFTOKEN";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
-const token = Cookies.get("CSRFTOKEN");
-
-const header = {
-  headers: {
-    "Content-Type": "application/json",
-    "X-CSRFToken": token,
+axios.interceptors.request.use(
+  (config) => {
+    // CSRF-Token aus den Cookies holen
+    const csrfToken = Cookies.get("csrftoken");
+    if (csrfToken) {
+      config.headers["X-CSRFToken"] = csrfToken;
+    }
+    return config;
   },
-  withCredentials: true,
-};
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const getIpaddressesCount = async (suffix: number) => {
   try {
@@ -40,8 +44,7 @@ export const getAddressSpace = async (
         {
           ipaddress_cidr: ipaddressCidr,
           existing_ranges: existing_ranges,
-        },
-        header
+        }
       );
 
       if (response.status === 200) {
@@ -85,8 +88,7 @@ export const generateNextSubnet = async (
         vnet_cidr,
         new_suffix_length,
         ip_ranges_used,
-      },
-      header
+      }
     );
 
     if (response.status === 200) {
@@ -120,8 +122,7 @@ export const compareVnetRangeWithSubnetRangeUsed = async (
       {
         vnet_cidrs,
         ip_ranges_used,
-      },
-      header
+      }
     );
 
     if (response.status === 200) {
