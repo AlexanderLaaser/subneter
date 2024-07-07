@@ -54,7 +54,6 @@ resource "azurerm_container_app" "react" {
       }
     }
   }
-
   depends_on = [azurerm_role_assignment.containerappsacrpull]
 }
 
