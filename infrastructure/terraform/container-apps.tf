@@ -47,7 +47,14 @@ resource "azurerm_container_app" "react" {
       image  = "acrsubneterdev.azurecr.io/react:latest"
       cpu    = 1.0
       memory = "2Gi"
+
+      env {
+        name  = "DJANGO_API_URL"
+        value = var.VITE_API_SERVER_URL
+      }
     }
+
+
   }
 
   depends_on = [azurerm_role_assignment.containerappsacrpull]
