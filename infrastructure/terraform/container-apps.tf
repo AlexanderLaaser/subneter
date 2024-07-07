@@ -31,6 +31,15 @@ resource "azurerm_container_app" "react" {
     identity_ids = [azurerm_user_assigned_identity.main.id]
   }
 
+  ingress {
+    allow_insecure_connections = false
+    external_enabled           = true
+    target_port                = 5173
+    traffic_weight {
+      percentage = 100
+    }
+  }
+
   template {
     container {
       name   = "react"
@@ -57,6 +66,15 @@ resource "azurerm_container_app" "django" {
   identity {
     type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.main.id]
+  }
+
+  ingress {
+    allow_insecure_connections = false
+    external_enabled           = true
+    target_port                = 8000
+    traffic_weight {
+      percentage = 100
+    }
   }
 
   template {
