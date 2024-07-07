@@ -23,7 +23,12 @@ resource "azurerm_container_app" "react" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = "/subscriptions/74077376-f68b-431a-ad4c-9d488b8aa06f/resourceGroups/rg-subneterdev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/subneter-main"
+    identity = azurerm_user_assigned_identity.main.id
+  }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.main.id]
   }
 
   template {
@@ -46,7 +51,12 @@ resource "azurerm_container_app" "django" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = "/subscriptions/74077376-f68b-431a-ad4c-9d488b8aa06f/resourceGroups/rg-subneterdev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/subneter-main"
+    identity = azurerm_user_assigned_identity.main.id
+  }
+
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.main.id]
   }
 
   template {
