@@ -11,6 +11,8 @@ resource "azurerm_container_app_environment" "main" {
   location                   = var.location
   resource_group_name        = azurerm_resource_group.main.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
+
+  depends_on = [azurerm_role_assignment.containerappsacrpull]
 }
 
 resource "azurerm_container_app" "react" {
@@ -21,7 +23,7 @@ resource "azurerm_container_app" "react" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = azurerm_user_assigned_identity.main.id
+    identity = "/subscriptions/74077376-f68b-431a-ad4c-9d488b8aa06f/resourceGroups/rg-subneterdev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/subneter-main"
   }
 
   template {
@@ -32,6 +34,8 @@ resource "azurerm_container_app" "react" {
       memory = "2Gi"
     }
   }
+
+  depends_on = [azurerm_role_assignment.containerappsacrpull]
 }
 
 resource "azurerm_container_app" "django" {
@@ -42,7 +46,7 @@ resource "azurerm_container_app" "django" {
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
-    identity = azurerm_user_assigned_identity.main.id
+    identity = "/subscriptions/74077376-f68b-431a-ad4c-9d488b8aa06f/resourceGroups/rg-subneterdev/providers/Microsoft.ManagedIdentity/userAssignedIdentities/subneter-main"
   }
 
   template {
@@ -53,4 +57,6 @@ resource "azurerm_container_app" "django" {
       memory = "2Gi"
     }
   }
+
+  depends_on = [azurerm_role_assignment.containerappsacrpull]
 }

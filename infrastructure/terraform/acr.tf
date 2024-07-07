@@ -11,6 +11,12 @@ resource "azurerm_role_assignment" "containerappsacrpull" {
   role_definition_name             = "AcrPull"
   scope                            = azurerm_container_registry.acr.id
   skip_service_principal_aad_check = true
+
+  depends_on = [
+    azurerm_user_assigned_identity.main,
+    azurerm_container_registry.acr
+  ]
+
 }
 
 resource "azurerm_user_assigned_identity" "main" {
