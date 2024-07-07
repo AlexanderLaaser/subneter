@@ -36,7 +36,8 @@ resource "azurerm_container_app" "react" {
     external_enabled           = true
     target_port                = 5173
     traffic_weight {
-      percentage = 100
+      percentage      = 100
+      latest_revision = true
     }
   }
 
@@ -73,7 +74,8 @@ resource "azurerm_container_app" "django" {
     external_enabled           = true
     target_port                = 8000
     traffic_weight {
-      percentage = 100
+      percentage      = 100
+      latest_revision = true
     }
   }
 
