@@ -23,3 +23,23 @@ variable "http_application_routing_enabled" {
 variable "VITE_API_SERVER_URL" {
   type = string
 }
+
+variable "DB_NAME" {
+  type = string
+}
+
+variable "DB_USER" {
+  type = string
+}
+
+variable "DB_PASSWORD" {
+  type = string
+}
+
+variable "DB_HOST" {
+  type = string
+}
+
+variable "DB_PORT" {
+  type = string
+}

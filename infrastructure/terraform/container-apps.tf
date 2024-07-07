@@ -90,6 +90,31 @@ resource "azurerm_container_app" "django" {
       image  = "acrsubneterdev.azurecr.io/django:latest"
       cpu    = 1.0
       memory = "2Gi"
+
+      env {
+        name  = "DB_NAME"
+        value = var.DB_NAME
+      }
+
+      env {
+        name  = "DB_USER"
+        value = var.DB_USER
+      }
+
+      env {
+        name  = "DB_PASSWORD"
+        value = var.DB_PASSWORD
+      }
+
+      env {
+        name  = "DB_HOST"
+        value = var.DB_HOST
+      }
+
+      env {
+        name  = "DB_PORT"
+        value = var.DB_PORT
+      }
     }
   }
 
