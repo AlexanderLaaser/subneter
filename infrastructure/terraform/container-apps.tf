@@ -59,7 +59,7 @@ resource "azurerm_container_app" "react" {
       memory = "3Gi"
 
       env {
-        name  = "BACKEND_URL"
+        name  = "VITE_BACKEND_URL"
         value = var.VITE_BACKEND_URL
       }
     }
