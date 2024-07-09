@@ -15,8 +15,8 @@ resource "azurerm_container_app_environment" "main" {
   workload_profile {
     name                  = "ContainerAppsGA"
     workload_profile_type = "D16"
-    maximum_count         = 5
-    minimum_count         = 3
+    maximum_count         = 3
+    minimum_count         = 2
   }
 
   depends_on = [azurerm_role_assignment.containerappsacrpull]
