@@ -25,7 +25,7 @@ export const getAllVnets = async (isUserAuthenticated: boolean) => {
   if (isUserAuthenticated) {
     try {
       const response = await axios.get(
-        `${import.meta.env.BACKEND_URL}/api/calculator/vnets/`
+        `${import.meta.env.VITE_BACKEND_URL}/api/calculator/vnets/`
       );
 
       if (response.status === 200) {
@@ -62,7 +62,7 @@ export const createVnet = async (
   if (isUserAuthenticated) {
     try {
       const response = await axios.post(
-        `${import.meta.env.BACKEND_URL}/api/calculator/vnets/`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/calculator/vnets/`,
         vnetData
       );
 
@@ -101,7 +101,7 @@ export const updateVnetById = async (
   if (isUserAuthenticated) {
     try {
       const response = await axios.put(
-        `${import.meta.env.BACKEND_URL}/api/calculator/vnets/${vnetId}/`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/calculator/vnets/${vnetId}/`,
         vnetData
       );
 
@@ -139,7 +139,7 @@ export const deleteVnetById = async (
   if (isUserAuthenticated) {
     try {
       const response = await axios.delete(
-        `${import.meta.env.BACKEND_URL}/api/calculator/vnets/${vnetId}/`
+        `${import.meta.env.VITE_BACKEND_URL}/api/calculator/vnets/${vnetId}/`
       );
 
       if (response.status === 200 || response.status === 204) {

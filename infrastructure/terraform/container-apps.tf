@@ -60,7 +60,7 @@ resource "azurerm_container_app" "react" {
 
       env {
         name  = "BACKEND_URL"
-        value = var.BACKEND_URL
+        value = var.VITE_BACKEND_URL
       }
     }
   }
@@ -134,7 +134,7 @@ resource "azurerm_container_app" "django" {
 
       env {
         name  = "BACKEND_URL"
-        value = var.BACKEND_URL
+        value = var.VITE_BACKEND_URL
       }
     }
   }

@@ -24,7 +24,7 @@ axios.interceptors.request.use(
 export const registerUser = async (user: iUser) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/user/register_user`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/register_user`,
       user
     );
 
@@ -53,7 +53,7 @@ export const registerUser = async (user: iUser) => {
 export const loginUser = async (email: string, password: string) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/user/login_user`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/login_user`,
       {
         email,
         password,
@@ -91,7 +91,7 @@ export const loginUser = async (email: string, password: string) => {
 export const getCurrentUser = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.BACKEND_URL}/api/user/get_current_user`
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/get_current_user`
     );
 
     if (response.status === 200) {
@@ -125,7 +125,7 @@ export const getCurrentUser = async () => {
 export const logoutUser = async () => {
   try {
     const response = await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/user/logout_user`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/logout_user`,
       {}
     );
     return response.data;
@@ -138,7 +138,7 @@ export const logoutUser = async () => {
 export const checkEmailAvailability = async (email: string) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/user/check_email`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/user/check_email`,
       { email }
     );
     return response.data.available;

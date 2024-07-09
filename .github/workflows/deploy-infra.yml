@@ -22,7 +22,7 @@ env:
   ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
   TF_VAR_clientid: ${{ vars.ARM_CLIENT_ID }}
   TF_VAR_objectid: ${{ vars.ARM_APP_ID_azurekeyvaultsecretsprovider_aks_subneterdev }}
-  TF_VAR_BACKEND_URL: ${{ vars.BACKEND_URL }}
+  TF_VAR_VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL }}
   TF_VAR_FRONTEND_URL: ${{ vars.FRONTEND_URL }}
   TF_VAR_DB_HOST: ${{ vars.DB_HOST }}
   TF_VAR_DB_NAME: ${{ vars.DB_NAME }}

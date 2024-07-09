@@ -44,6 +44,6 @@ variable "FRONTEND_URL" {
   type = string
 }
 
-variable "BACKEND_URL" {
+variable "VITE_BACKEND_URL" {
   type = string
 }
