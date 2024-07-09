@@ -60,7 +60,7 @@ resource "azurerm_container_app" "react" {
 
       env {
         name  = "VITE_BACKEND_URL"
-        value = "subneter-django.internal.graysand-3f812d09.westeurope.azurecontainerapps.io"
+        value = var.VITE_BACKEND_URL
       }
     }
   }
@@ -133,8 +133,8 @@ resource "azurerm_container_app" "django" {
       }
 
       env {
-        name  = "VITE_BACKEND_URL"
-        value = "subneter-django.internal.graysand-3f812d09.westeurope.azurecontainerapps.io"
+        name  = "BACKEND_URL"
+        value = var.BACKEND_URL
       }
     }
   }

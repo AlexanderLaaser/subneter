@@ -47,3 +47,7 @@ variable "FRONTEND_URL" {
 variable "VITE_BACKEND_URL" {
   type = string
 }
+
+variable "BACKEND_URL" {
+  type = string
+}
