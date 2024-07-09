@@ -14,7 +14,7 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerApps"
-    workload_profile_type = "D2" # Beispiel für ein kleineres Profil
+    workload_profile_type = "E8" # Beispiel für ein kleineres Profil
     maximum_count         = 8
     minimum_count         = 1
   }
