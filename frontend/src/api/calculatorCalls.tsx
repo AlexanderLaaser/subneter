@@ -40,7 +40,7 @@ export const getAddressSpace = async (
   if (isValid) {
     try {
       const response = await axios.post(
-        `${import.meta.env.BACKEND_URL}/api/calculator/address_space`,
+        `https://${import.meta.env.BACKEND_URL}/api/calculator/address_space`,
         {
           ipaddress_cidr: ipaddressCidr,
           existing_ranges: existing_ranges,
@@ -81,7 +81,9 @@ export const generateNextSubnet = async (
     }
 
     const response = await axios.post(
-      `${import.meta.env.BACKEND_URL}/api/calculator/generate_next_subnet`,
+      `https://${
+        import.meta.env.BACKEND_URL
+      }/api/calculator/generate_next_subnet`,
       {
         vnet_cidr,
         new_suffix_length,
@@ -114,7 +116,7 @@ export const compareVnetRangeWithSubnetRangeUsed = async (
 ) => {
   try {
     const response = await axios.post(
-      `${
+      `https://${
         import.meta.env.BACKEND_URL
       }/api/calculator/compare_vnet_range_with_subnet_ranges_used`,
       {
