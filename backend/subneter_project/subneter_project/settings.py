@@ -23,11 +23,7 @@ BACKEND_URL = config('BACKEND_URL', default='')
 print(f"Configured FRONTEND_URL: {FRONTEND_URL}")
 print(f"Configured BACKEND_URL: {BACKEND_URL}")
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de',"https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io","https://subneter-django.gentlebeach-face0caa.westeurope.azurecontainerapps.io"]
-if FRONTEND_URL:
-    ALLOWED_HOSTS.append(FRONTEND_URL)
-if BACKEND_URL:
-    ALLOWED_HOSTS.append(BACKEND_URL)
+ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de',"https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io"]
 
 print(f"Configured ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
@@ -46,16 +42,18 @@ INSTALLED_APPS = [
     'user_app',
 ]
 
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 CSRF_COOKIE_NAME = 'csrftoken'
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173','https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io','https://subneter-django.gentlebeach-face0caa.westeurope.azurecontainerapps.io']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173','https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io']
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173','https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io','https://subneter-django.gentlebeach-face0caa.westeurope.azurecontainerapps.io']
+    'http://127.0.0.1:5173','https://subneter-react.gentlebeach-face0caa.westeurope.azurecontainerapps.io']
 
 CORS_ALLOW_HEADERS = [
     "x-csrftoken",
