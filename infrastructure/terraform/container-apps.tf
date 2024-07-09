@@ -12,6 +12,13 @@ resource "azurerm_container_app_environment" "main" {
   resource_group_name        = azurerm_resource_group.main.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
+  workload_profile {
+    name                  = "ContainerApps"
+    workload_profile_type = "E16"
+    maximum_count         = 10
+    minimum_count         = 1
+  }
+
   depends_on = [azurerm_role_assignment.containerappsacrpull]
 }
 
@@ -20,6 +27,8 @@ resource "azurerm_container_app" "react" {
   container_app_environment_id = azurerm_container_app_environment.main.id
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
+
+  workload_profile_name = "ContainerApps"
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
@@ -45,7 +54,7 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 1.0
+      cpu    = 4.0
       memory = "2Gi"
 
       env {
@@ -62,6 +71,8 @@ resource "azurerm_container_app" "django" {
   container_app_environment_id = azurerm_container_app_environment.main.id
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
+
+  workload_profile_name = "ContainerApps"
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
@@ -87,7 +98,7 @@ resource "azurerm_container_app" "django" {
     container {
       name   = "django"
       image  = "acrsubneterdev.azurecr.io/django:latest"
-      cpu    = 1.0
+      cpu    = 4.0
       memory = "2Gi"
 
       env {
