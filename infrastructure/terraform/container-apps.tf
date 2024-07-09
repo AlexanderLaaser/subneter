@@ -15,8 +15,8 @@ resource "azurerm_container_app_environment" "main" {
   workload_profile {
     name                  = "ContainerAppsGA"
     workload_profile_type = "D16"
-    maximum_count         = 6
-    minimum_count         = 1
+    maximum_count         = 8
+    minimum_count         = 3
   }
 
   depends_on = [azurerm_role_assignment.containerappsacrpull]
@@ -55,7 +55,7 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 4.0
+      cpu    = 3.0
       memory = "4Gi"
 
       env {
