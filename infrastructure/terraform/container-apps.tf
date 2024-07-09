@@ -133,7 +133,7 @@ resource "azurerm_container_app" "django" {
       }
 
       env {
-        name  = "BACKEND_URL"
+        name  = "VITE_BACKEND_URL"
         value = var.VITE_BACKEND_URL
       }
     }
