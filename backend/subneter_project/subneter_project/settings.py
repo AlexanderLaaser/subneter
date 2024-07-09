@@ -18,16 +18,16 @@ AUTH_USER_MODEL = 'user_app.CustomUser'
 
 # Read the FRONTEND_URL and BACKEND_URL from environment variables
 FRONTEND_URL = config('FRONTEND_URL', default='')
-BACKEND_URL = config('BACKEND_URL', default='')
+VITE_BACKEND_URL = config('VITE_BACKEND_URL', default='')
 
 print(f"Configured FRONTEND_URL: {FRONTEND_URL}")
-print(f"Configured BACKEND_URL: {BACKEND_URL}")
+print(f"Configured BACKEND_URL: {VITE_BACKEND_URL}")
 
 ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de']
 if FRONTEND_URL:
     ALLOWED_HOSTS.append(FRONTEND_URL)
-if BACKEND_URL:
-    ALLOWED_HOSTS.append(BACKEND_URL)
+if VITE_BACKEND_URL:
+    ALLOWED_HOSTS.append(VITE_BACKEND_URL)
 
 print(f"Configured ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
@@ -55,8 +55,8 @@ CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173']
 if FRONTEND_URL:
     CSRF_TRUSTED_ORIGINS.append(f'https://{FRONTEND_URL}')
-if BACKEND_URL:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{BACKEND_URL}')
+if VITE_BACKEND_URL:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{VITE_BACKEND_URL}')
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
@@ -65,8 +65,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 if FRONTEND_URL:
     CORS_ALLOWED_ORIGINS.append(f'https://{FRONTEND_URL}')
-if BACKEND_URL:
-    CORS_ALLOWED_ORIGINS.append(f'https://{BACKEND_URL}')
+if VITE_BACKEND_URL:
+    CORS_ALLOWED_ORIGINS.append(f'https://{VITE_BACKEND_URL}')
 
 CORS_ALLOW_HEADERS = [
     "x-csrftoken",
