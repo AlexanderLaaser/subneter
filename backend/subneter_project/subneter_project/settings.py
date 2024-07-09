@@ -23,7 +23,7 @@ BACKEND_URL = config('BACKEND_URL', default='')
 print(f"Configured FRONTEND_URL: {FRONTEND_URL}")
 print(f"Configured BACKEND_URL: {BACKEND_URL}")
 
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de',"https://subneter-django.gentlebeach-face0caa.westeurope.azurecontainerapps.io"]
+ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de','subneter-django.gentlebeach-face0caa.westeurope.azurecontainerapps.io']
 
 print(f"Configured ALLOWED_HOSTS: {ALLOWED_HOSTS}")
 
