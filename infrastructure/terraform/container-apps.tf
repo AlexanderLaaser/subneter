@@ -14,8 +14,8 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerApps"
-    workload_profile_type = "E16"
-    maximum_count         = 10
+    workload_profile_type = "E32"
+    maximum_count         = 8
     minimum_count         = 1
   }
 
