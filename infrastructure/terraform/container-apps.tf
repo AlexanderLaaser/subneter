@@ -13,13 +13,6 @@ resource "azurerm_container_app_environment" "main" {
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
   workload_profile {
-    name                  = "ContainerApps"
-    workload_profile_type = "E4"
-    maximum_count         = 6
-    minimum_count         = 1
-  }
-
-  workload_profile {
     name                  = "ContainerAppsGA"
     workload_profile_type = "D16"
     maximum_count         = 6
