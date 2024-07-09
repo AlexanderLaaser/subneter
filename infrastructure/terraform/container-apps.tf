@@ -14,7 +14,7 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerAppsGA"
-    workload_profile_type = "D8"
+    workload_profile_type = "D16"
     maximum_count         = 8
     minimum_count         = 3
   }
@@ -56,7 +56,7 @@ resource "azurerm_container_app" "react" {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
       cpu    = 3.0
-      memory = "4Gi"
+      memory = "3Gi"
 
       env {
         name  = "VITE_API_SERVER_URL"
