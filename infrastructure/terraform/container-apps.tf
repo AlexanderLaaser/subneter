@@ -15,7 +15,7 @@ resource "azurerm_container_app_environment" "main" {
   workload_profile {
     name                  = "ContainerAppsGA"
     workload_profile_type = "D16"
-    maximum_count         = 8
+    maximum_count         = 5
     minimum_count         = 3
   }
 
