@@ -14,7 +14,7 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerApps"
-    workload_profile_type = "E8" # Beispiel für ein kleineres Profil
+    workload_profile_type = "D16"
     maximum_count         = 6
     minimum_count         = 1
   }
@@ -44,6 +44,7 @@ resource "azurerm_container_app" "react" {
     allow_insecure_connections = false
     external_enabled           = true
     target_port                = 5173
+
     traffic_weight {
       percentage      = 100
       latest_revision = true
@@ -54,8 +55,8 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 2.0   # Reduziere die CPU
-      memory = "2Gi" # Reduziere den Speicher
+      cpu    = 4.0
+      memory = "4Gi"
 
       env {
         name  = "VITE_API_SERVER_URL"
