@@ -20,10 +20,6 @@ variable "http_application_routing_enabled" {
   default = false
 }
 
-variable "VITE_API_SERVER_URL" {
-  type = string
-}
-
 variable "DB_NAME" {
   type = string
 }

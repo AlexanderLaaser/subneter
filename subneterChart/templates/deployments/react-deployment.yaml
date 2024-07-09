@@ -23,11 +23,11 @@ spec:
             mountPath: "/mnt/certificates"
             readOnly: true
           env:
-          - name: VITE_API_SERVER_URL
+          - name: BACKEND_URL
             valueFrom:
               configMapKeyRef:
                 name: frontend-config
-                key: VITE_API_SERVER_URL
+                key: BACKEND_URL
       volumes:
       - name: {{ $.Values.app.name }}-secretproviderclass
         csi:

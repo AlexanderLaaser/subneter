@@ -59,8 +59,8 @@ resource "azurerm_container_app" "react" {
       memory = "3Gi"
 
       env {
-        name  = "VITE_API_SERVER_URL"
-        value = var.VITE_API_SERVER_URL
+        name  = "BACKEND_URL"
+        value = var.BACKEND_URL
       }
     }
   }
