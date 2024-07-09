@@ -14,6 +14,13 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerApps"
+    workload_profile_type = "E4"
+    maximum_count         = 6
+    minimum_count         = 1
+  }
+
+  workload_profile {
+    name                  = "ContainerAppsGA"
     workload_profile_type = "D16"
     maximum_count         = 6
     minimum_count         = 1
@@ -28,7 +35,7 @@ resource "azurerm_container_app" "react" {
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
 
-  workload_profile_name = "ContainerApps"
+  workload_profile_name = "ContainerAppsGA"
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
@@ -73,7 +80,7 @@ resource "azurerm_container_app" "django" {
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
 
-  workload_profile_name = "ContainerApps"
+  workload_profile_name = "ContainerAppsGA"
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
