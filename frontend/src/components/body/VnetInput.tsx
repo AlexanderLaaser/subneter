@@ -142,7 +142,7 @@ function VnetInput() {
             className="flex-start text-lg text-primary font-medium h-10 w-10"
             id="vnetname"
           >
-            Network name
+            Networkname
           </div>
           <div className="flex-start rounded-lg ">
             <input
