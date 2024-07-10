@@ -55,8 +55,8 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 2.0
-      memory = "2Gi"
+      cpu    = 3.0
+      memory = "3Gi"
 
       env {
         name  = "VITE_BACKEND_URL"

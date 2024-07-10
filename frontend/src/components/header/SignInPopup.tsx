@@ -10,7 +10,11 @@ import {
 import { useUserStore } from "../../store/UserStore";
 import Logo from "../../styles/logo.png";
 
-function SignUpPopUp() {
+type SignUpPopUpProps = {
+  onClose: () => void;
+};
+
+function SignUpPopUp({ onClose }: SignUpPopUpProps) {
   const navigate = useNavigate();
 
   const [user, setUser] = useState<iUser>({
@@ -62,6 +66,7 @@ function SignUpPopUp() {
   };
 
   const clickToHome = () => {
+    onClose();
     navigate("/");
   };
 

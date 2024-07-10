@@ -19,6 +19,14 @@ function Header() {
     setSignUpPopUp(true);
   };
 
+  const handleCloseLoginPopup = () => {
+    setLoginPopup(false);
+  };
+
+  const handleCloseSignUpPopup = () => {
+    setSignUpPopUp(false);
+  };
+
   return (
     <div className="flex justify-between p-2 z-50 bg-white">
       <div className="flex flex-1 flex-row text-white space-x-4 items-center w-1/6">
@@ -69,7 +77,7 @@ function Header() {
               Login
             </button>
           </div>
-          {showSignUpPopup && <SignUpPopUp />}
+          {showSignUpPopup && <SignUpPopUp onClose={handleCloseSignUpPopup} />}
           <div className="flex bg-sky-800 text-white rounded-lg hover:bg-secondary p-2">
             <button
               className="flex items-center h-full font-semibold"
@@ -93,7 +101,7 @@ function Header() {
               </svg>
             </button>
           </div>
-          {showLoginPopup && <LoginPopUp />}
+          {showLoginPopup && <LoginPopUp onClose={handleCloseLoginPopup} />}
         </div>
       )}
     </div>

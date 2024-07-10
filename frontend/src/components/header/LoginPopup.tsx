@@ -1,20 +1,20 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getCurrentUser, loginUser } from "../../api/userCalls";
 import Logo from "../../styles/logo.png";
-
 import { useUserStore } from "../../store/UserStore";
 import { useState } from "react";
 
-function LoginPopUp() {
-  const navigate = useNavigate();
+type LoginPopUpProps = {
+  onClose: () => void;
+};
+
+function LoginPopUp({ onClose }: LoginPopUpProps) {
   const location = useLocation();
   const state = location.state as {
     loginpopouplocation?: Location;
   };
   const loginpopouplocation = state?.loginpopouplocation;
-
   const [errorMessage, setErrorMessage] = useState("");
-
   const {
     setPassword,
     setFirstname,
@@ -34,10 +34,6 @@ function LoginPopUp() {
     }
   };
 
-  function clickToHome() {
-    navigate("/");
-  }
-
   async function setUserData() {
     const userData = await getCurrentUser();
     setuserLoginStatus(true);
@@ -56,7 +52,7 @@ function LoginPopUp() {
     try {
       const userData = await loginUser(email, password);
       if (userData) {
-        clickToHome();
+        onClose();
         setUserData();
       }
     } catch (error) {
@@ -76,7 +72,7 @@ function LoginPopUp() {
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-              onClick={clickToHome}
+              onClick={onClose}
             >
               <svg
                 className="w-5 h-5"
@@ -148,35 +144,6 @@ function LoginPopUp() {
               )}
             </div>
 
-            {/* <a className="text-sm text-zinc-700">Lost Password?</a> */}
-
-            {/* <div className="flex flex-row gap-2">
-              <button
-                disabled
-                className="inline-flex h-10 rounded-lg w-full items-center justify-center gap-2 border border-sky-800 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 hover:border-secondary"
-              >
-                <img src={googleLogo} alt="Your Logo" className="h-6 w-6"></img>
-                Google
-              </button>
-              <button
-                disabled
-                className="inline-flex h-10 rounded-lg w-full items-center justify-center gap-2 border border-sky-800 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 hover:border-secondary"
-              >
-                <img
-                  src={microsoftLogo}
-                  alt="Your Logo"
-                  className="h-6 w-6"
-                ></img>{" "}
-                Microsoft
-              </button>
-              <button
-                disabled
-                className="inline-flex h-10 rounded-lg w-full items-center justify-center gap-2 border border-sky-800 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60 hover:border-secondary"
-              >
-                <img src={githubLogo} alt="Your Logo" className="h-6 w-6"></img>{" "}
-                GitHub
-              </button>
-            </div> */}
             <button
               type="submit"
               className="w-full text-white bg-sky-800 hover:bg-secondary focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hover:scale-105 transition"
