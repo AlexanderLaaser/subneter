@@ -87,7 +87,7 @@ resource "azurerm_container_app" "django" {
 
   ingress {
     allow_insecure_connections = false
-    external_enabled           = false
+    external_enabled           = true
     target_port                = 8000
     traffic_weight {
       percentage      = 100
