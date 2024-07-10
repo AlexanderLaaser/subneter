@@ -1,7 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import SignUpPopUp from "../../header/SignInPopup";
 
 function Features() {
-  const location = useLocation();
+  const [showSignUpPopup, setSignUpPopUp] = useState(false);
+
+  const handleSignUpClick = () => {
+    setSignUpPopUp(true);
+  };
+
+  const handleCloseSignUpPopup = () => {
+    setSignUpPopUp(false);
+  };
+
   return (
     <section className="py-8">
       <div className="">
@@ -21,11 +31,13 @@ function Features() {
               Unlock exclusive features and seamless virtual network management
               - sign in now to transform your cloud experience!
             </p>
-            <div className="flex bg-sky-800 text-white rounded-lg p-2 w-fit hover:bg-secondary hover:scale-110 transition">
-              <Link
-                to="/register"
-                state={{ registerpopouplocation: location }}
-                className="flex items-center h-full font-semibold "
+            {showSignUpPopup && (
+              <SignUpPopUp onClose={handleCloseSignUpPopup} />
+            )}
+            <div className="flex bg-sky-800 text-white rounded-lg hover:bg-secondary p-2 w-fit">
+              <button
+                className="flex items-center h-full font-semibold"
+                onClick={handleSignUpClick}
               >
                 Sign Up
                 <svg
@@ -43,7 +55,7 @@ function Features() {
                     d="M1 5h12m0 0L9 1m4 4L9 9"
                   />
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
