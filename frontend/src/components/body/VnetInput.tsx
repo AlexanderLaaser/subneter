@@ -142,7 +142,7 @@ function VnetInput() {
             className="flex-start text-lg text-primary font-medium h-10 w-10"
             id="vnetname"
           >
-            Networkname
+            Network name
           </div>
           <div className="flex-start rounded-lg ">
             <input
@@ -169,7 +169,7 @@ function VnetInput() {
             className=" flex flex-row flex-1 text-lg font-medium text-primary"
             id="vnetname"
           >
-            <div className="flex-1 font-primary">Address Space</div>
+            <div className="flex-1 font-primary">Address space</div>
             <div className="flex flex-end">
               <div className="flex flex-col content-center " id="addbutton">
                 <div className="flex flex-1 items-start">

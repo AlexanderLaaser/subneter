@@ -78,7 +78,7 @@ function Features() {
                 />
               </svg>
             </div>
-            <h4 className="text-xl font-semibold text-sky-800 mb-3 capitalize transition-all duration-150 group-hover:text-white">
+            <h4 className="text-xl font-semibold text-sky-800 mb-3 transition-all duration-150 group-hover:text-white">
               Multiple address spaces
             </h4>
             <p className="text-sm font-normal text-gray-500 transition-all duration-150 leading-5 group-hover:text-white">
@@ -104,7 +104,7 @@ function Features() {
                 ></path>
               </svg>
             </div>
-            <h4 className="text-xl font-semibold text-sky-800 mb-3 capitalize transition-all duration-150 group-hover:text-white">
+            <h4 className="text-xl font-semibold text-sky-800 mb-3 transition-all duration-150 group-hover:text-white">
               Persist configurations
             </h4>
             <p className="text-sm font-normal text-gray-500 transition-all duration-150 leading-5 group-hover:text-white">
@@ -137,7 +137,7 @@ function Features() {
                 />
               </svg>
             </div>
-            <h4 className="text-xl font-semibold text-sky-800 mb-3 capitalize transition-all duration-150 group-hover:text-white">
+            <h4 className="text-xl font-semibold text-sky-800 mb-3 transition-all duration-150 group-hover:text-white">
               Deploy your network
             </h4>
             <p className="text-sm font-normal text-gray-500 transition-all duration-150 leading-5 group-hover:text-white">

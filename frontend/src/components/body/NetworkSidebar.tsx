@@ -81,7 +81,7 @@ function NetworkSidebar() {
         <div className="pt-4 px-4 dark:bg-gray-800">
           <div className="flex items-center justify-between">
             <div className="flex text-lg font-medium h-10 items-center">
-              <h3>Virtuel Networks</h3>
+              <h3>Virtual Networks</h3>
             </div>
             <div className="flex-none">
               {unsavedChanges ? null : (
