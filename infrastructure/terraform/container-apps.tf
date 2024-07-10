@@ -14,7 +14,7 @@ resource "azurerm_container_app_environment" "main" {
 
   workload_profile {
     name                  = "ContainerAppsGA"
-    workload_profile_type = "D16"
+    workload_profile_type = "D8"
     maximum_count         = 3
     minimum_count         = 2
   }
@@ -55,8 +55,8 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 3.0
-      memory = "3Gi"
+      cpu    = 2.0
+      memory = "2Gi"
 
       env {
         name  = "VITE_BACKEND_URL"
@@ -99,8 +99,8 @@ resource "azurerm_container_app" "django" {
     container {
       name   = "django"
       image  = "acrsubneterdev.azurecr.io/django:latest"
-      cpu    = 2.0   # Reduziere die CPU
-      memory = "2Gi" # Reduziere den Speicher
+      cpu    = 2.0
+      memory = "2Gi"
 
       env {
         name  = "DB_NAME"
