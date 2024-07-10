@@ -24,8 +24,6 @@ print(f"Configured FRONTEND_URL: {FRONTEND_URL}")
 print(f"Configured BACKEND_URL: {BACKEND_URL}")
 
 ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', 'subneter.de',"subneter-django.livelycoast-5623ca93.westeurope.azurecontainerapps.io"]
-if FRONTEND_URL:
-    ALLOWED_HOSTS.append(FRONTEND_URL)
 if BACKEND_URL:
     ALLOWED_HOSTS.append(BACKEND_URL)
 
@@ -52,21 +50,17 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
 CSRF_COOKIE_NAME = 'csrftoken'
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:5173',"https://subneter-react.livelycoast-5623ca93.westeurope.azurecontainerapps.io"]
 if FRONTEND_URL:
     CSRF_TRUSTED_ORIGINS.append(f'https://{FRONTEND_URL}')
-if BACKEND_URL:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{BACKEND_URL}')
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173'
+    'http://127.0.0.1:5173',"https://subneter-react.livelycoast-5623ca93.westeurope.azurecontainerapps.io"
 ]
 if FRONTEND_URL:
     CORS_ALLOWED_ORIGINS.append(f'https://{FRONTEND_URL}')
-if BACKEND_URL:
-    CORS_ALLOWED_ORIGINS.append(f'https://{BACKEND_URL}')
 
 CORS_ALLOW_HEADERS = [
     "x-csrftoken",

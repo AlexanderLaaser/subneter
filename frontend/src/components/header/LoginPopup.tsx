@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getCurrentUser, loginUser } from "../../api/userCalls";
 import Logo from "../../styles/logo.png";
 import { useUserStore } from "../../store/UserStore";
