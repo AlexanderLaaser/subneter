@@ -12,13 +12,6 @@ resource "azurerm_container_app_environment" "main" {
   resource_group_name        = azurerm_resource_group.main.name
   log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
 
-  workload_profile {
-    name                  = "ContainerAppsGA"
-    workload_profile_type = "D8"
-    maximum_count         = 3
-    minimum_count         = 2
-  }
-
   depends_on = [azurerm_role_assignment.containerappsacrpull]
 }
 
