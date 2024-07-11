@@ -21,8 +21,6 @@ resource "azurerm_container_app" "react" {
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
 
-  workload_profile_name = "ContainerAppsGA"
-
   registry {
     server   = "acrsubneterdev.azurecr.io"
     identity = azurerm_user_assigned_identity.main.id
@@ -65,8 +63,6 @@ resource "azurerm_container_app" "django" {
   container_app_environment_id = azurerm_container_app_environment.main.id
   resource_group_name          = azurerm_resource_group.main.name
   revision_mode                = "Single"
-
-  workload_profile_name = "ContainerAppsGA"
 
   registry {
     server   = "acrsubneterdev.azurecr.io"
