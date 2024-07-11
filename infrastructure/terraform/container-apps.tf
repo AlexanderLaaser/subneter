@@ -46,8 +46,8 @@ resource "azurerm_container_app" "react" {
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
-      cpu    = 3.0
-      memory = "3Gi"
+      cpu    = 1.0
+      memory = "2Gi"
 
       env {
         name  = "VITE_BACKEND_URL"
@@ -88,7 +88,7 @@ resource "azurerm_container_app" "django" {
     container {
       name   = "django"
       image  = "acrsubneterdev.azurecr.io/django:latest"
-      cpu    = 2.0
+      cpu    = 1.0
       memory = "2Gi"
 
       env {
