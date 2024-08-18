@@ -43,6 +43,7 @@ resource "azurerm_container_app" "react" {
   }
 
   template {
+    min_replicas = 1
     container {
       name   = "react"
       image  = "acrsubneterdev.azurecr.io/react:latest"
@@ -85,6 +86,7 @@ resource "azurerm_container_app" "django" {
   }
 
   template {
+    min_replicas = 1
     container {
       name   = "django"
       image  = "acrsubneterdev.azurecr.io/django:latest"
